@@ -13,7 +13,8 @@
 // musn't import any non-std modules
 
 export function fromBrowser(ua) {
-  return ua && ua.startsWith("Mozilla/5.0");
+  if (emptyString(ua)) return false;
+  return ua.startsWith("Mozilla/5.0") || ua.startsWith("dohjs/");
 }
 
 export function jsonHeaders() {
@@ -522,13 +523,6 @@ export function mkFetchEvent(r, ...fns) {
 export function stub(...args) {
   return (...args) => {
     /* no-op */
-  };
-}
-
-export function stubr(r, ...args) {
-  return (...args) => {
-    /* no-op */
-    return r;
   };
 }
 
